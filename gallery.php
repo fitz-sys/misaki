@@ -23,4 +23,4 @@ $images = ['gallery-1.jpg','gallery-2.jpg','gallery-3.jpg','gallery-4.jpg','gall
     </div>
   </section>
 </div>
-<?php require __DIR__.'/includes/footer.php'; ?> ef
+<?php require __DIR__.'/includes/footer.php'; ?>
