@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__.'/auth.php';
-if(!isset($page)) $page = '';
-if(!isset($title)) $title = 'Misaki Handcrafted — Floral Studio';
-if(!isset($description)) $description = 'Lorem ipsum. Handcrafted floral arrangements with quiet ritual.';
+require_once __DIR__.'/products.php';
+if(!isset($page))        $page        = '';
+if(!isset($title))       $title       = 'Misaki Handcrafted — Floral Studio';
+if(!isset($description)) $description = 'Handcrafted floral arrangements with quiet ritual.';
 $me = current_user();
 ?><!DOCTYPE html>
 <html lang="en">
@@ -13,10 +14,10 @@ $me = current_user();
   <meta name="description" content="<?= htmlspecialchars($description) ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body data-page="<?= htmlspecialchars($page) ?>" <?= $me?'data-auth="1"':'' ?>>
+<body data-page="<?= htmlspecialchars($page) ?>"<?= $me?' data-auth="1"':'' ?>>
 
 <div class="page-loader"><div class="petal">美咲</div></div>
 
@@ -33,17 +34,25 @@ $me = current_user();
       <a href="about.php"   class="<?= $page==='about'?'active':'' ?>">About</a>
     </nav>
     <div class="nav-actions">
-      <button class="icon-btn faq-icon-btn open-faq" aria-label="FAQ" data-icon="help"></button>
+      <button class="icon-btn open-faq" aria-label="FAQ" title="FAQ">
+        <span data-icon="help"></span>
+      </button>
       <?php if($me): ?>
-        <a href="account.php" class="icon-btn" aria-label="Account" data-icon="user"></a>
+        <a href="account.php" class="icon-btn" aria-label="Account">
+          <span data-icon="user"></span>
+        </a>
       <?php else: ?>
-        <a href="login.php" class="icon-btn" aria-label="Sign in" data-icon="user"></a>
+        <a href="login.php" class="icon-btn" aria-label="Sign in">
+          <span data-icon="user"></span>
+        </a>
       <?php endif; ?>
       <a href="cart.php" class="icon-btn cart-link" aria-label="Cart">
-        <span class="cart-icon" data-icon="bag"></span>
+        <span data-icon="bag"></span>
         <span class="cart-badge" style="display:none">0</span>
       </a>
-      <button class="icon-btn menu-btn" aria-label="Menu" data-icon="menu"></button>
+      <button class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false">
+        <span data-icon="menu"></span>
+      </button>
     </div>
   </div>
   <div class="mobile-nav">
