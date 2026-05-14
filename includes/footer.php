@@ -1,40 +1,57 @@
+<?php
+// footer.php — all text pulled from site_settings via setting()
+// settings.php is already loaded by header.php, but require_once is safe
+require_once __DIR__.'/settings.php';
+
+$brand_name   = setting('brand_name',     'MISAKI');
+$brand_tagline= setting('brand_tagline',  'Handcrafted floral studio rooted in quiet ritual and seasonal bloom.');
+$quote_jp     = setting('brand_quote_jp', '花のように静かに · like flowers, quietly');
+$email        = setting('contact_email',  'hello@misaki.lorem');
+$phone        = setting('contact_phone',  '+00 000 0000');
+$instagram    = setting('contact_instagram', '@misaki.handcrafted');
+$tos_text     = setting('footer_link_2_text', 'Terms of Service');
+$tos_url      = setting('footer_link_2_url',  '#');
+
+// Adjust paths when inside /legal/ subfolder
+$base = (isset($page) && $page === 'legal') ? '../' : '';
+?>
 </main>
 
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="logo">MISAKI</div>
-      <p>Handcrafted floral studio rooted in quiet ritual and seasonal bloom.</p>
+      <div class="logo"><?= htmlspecialchars($brand_name) ?></div>
+      <p><?= htmlspecialchars($brand_tagline) ?></p>
     </div>
     <div class="footer-col">
       <div class="h">Explore</div>
       <ul>
-        <li><a href="shop.php">Shop</a></li>
-        <li><a href="gallery.php">Gallery</a></li>
-        <li><a href="about.php">About</a></li>
-        <li><a href="cart.php">Cart</a></li>
+        <li><a href="<?= $base ?>shop.php">Shop</a></li>
+        <li><a href="<?= $base ?>gallery.php">Gallery</a></li>
+        <li><a href="<?= $base ?>about.php">About</a></li>
+        <li><a href="<?= $base ?>cart.php">Cart</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <div class="h">Legal</div>
       <ul>
-        <li><a href="<?= (isset($page) && $page === 'legal') ? '' : 'legal/' ?>privacy.php">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
+        <li><a href="<?= $base ?>legal/privacy.php">Privacy Policy</a></li>
+        <li><a href="<?= $base ?><?= htmlspecialchars($tos_url) ?>"><?= htmlspecialchars($tos_text) ?></a></li>
       </ul>
     </div>
     <div class="footer-col">
       <div class="h">Contact</div>
       <ul>
-        <li>✉ hello@misaki.lorem</li>
-        <li>☎ +00 000 0000</li>
-        <li>◎ @misaki.handcrafted</li>
+        <li>✉ <?= htmlspecialchars($email) ?></li>
+        <li>☎ <?= htmlspecialchars($phone) ?></li>
+        <li>◎ <?= htmlspecialchars($instagram) ?></li>
       </ul>
     </div>
   </div>
   <div class="footer-base">
     <div class="footer-base-inner">
-      <div>© <?= date('Y') ?> Misaki Handcrafted.</div>
-      <div class="font-jp">花のように静かに · like flowers, quietly</div>
+      <div>© <?= date('Y') ?> <?= htmlspecialchars($brand_name) ?> Handcrafted.</div>
+      <div class="font-jp"><?= htmlspecialchars($quote_jp) ?></div>
     </div>
   </div>
 </footer>
@@ -99,6 +116,6 @@
 window.MISAKI_ADDONS = <?= json_encode(fetch_addons(true)) ?>;
 window.MISAKI_AUTH   = <?= current_user_id() ? 'true' : 'false' ?>;
 </script>
-<script src="<?= (isset($page) && $page === 'legal') ? '../' : '' ?>js/main.js"></script>
+<script src="<?= $base ?>js/main.js"></script>
 </body>
 </html>

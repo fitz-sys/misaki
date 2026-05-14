@@ -1,10 +1,16 @@
 <?php
 require_once __DIR__.'/auth.php';
 require_once __DIR__.'/products.php';
+require_once __DIR__.'/settings.php';
+
 if(!isset($page))        $page        = '';
-if(!isset($title))       $title       = 'Misaki Handcrafted — Floral Studio';
-if(!isset($description)) $description = 'Handcrafted floral arrangements with quiet ritual.';
+if(!isset($title))       $title       = setting('meta_og_title', 'Misaki Handcrafted — Floral Studio');
+if(!isset($description)) $description = setting('meta_description', 'Handcrafted floral arrangements with quiet ritual.');
+
 $me = current_user();
+
+$brand_name = setting('brand_name', 'MISAKI');
+$brand_jp   = setting('brand_jp',   'handcrafted · 美咲');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +22,7 @@ $me = current_user();
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <?php render_color_vars(); // inject dynamic CSS variables from DB ?>
 </head>
 <body data-page="<?= htmlspecialchars($page) ?>"<?= $me?' data-auth="1"':'' ?>>
 
@@ -24,8 +31,8 @@ $me = current_user();
 <header class="navbar">
   <div class="nav-inner">
     <a href="index.php" class="brand">
-      <span class="brand-logo">MISAKI</span>
-      <span class="brand-jp">handcrafted · 美咲</span>
+      <span class="brand-logo"><?= htmlspecialchars($brand_name) ?></span>
+      <span class="brand-jp"><?= htmlspecialchars($brand_jp) ?></span>
     </a>
     <nav class="nav-links">
       <a href="index.php"   class="<?= $page==='home'?'active':'' ?>">Home</a>
